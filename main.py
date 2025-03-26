@@ -1,47 +1,43 @@
 
 import random
 from unit import Unit
+from team import Team
 
-attackers = [Unit() for _ in range(5)]
-defenders = [Unit() for _ in range(5)]
+attackers = Team([Unit() for _ in range(5)])
+defenders = Team([Unit() for _ in range(5)])
 
 for tick in range(10):
 
-    alive_attackers = [a for a in attackers if a.is_alive()]
-    alive_defenders = [d for d in defenders if d.is_alive()]
+    alive_attackers = attackers.get_alive_units()
+    alive_defenders = defenders.get_alive_units()
 
     print(f"TICK {tick}")
     for a in alive_attackers:
-        alive_defenders = [d for d in defenders if d.is_alive()]
-        if len(alive_defenders) == 0:
+        alive_defenders = defenders.get_alive_units()
+        
+        if defenders.is_defeated():
+            print(f"Attackers: {attackers}")
+            print(f"Defenders: {defenders}")
             print("ATTACKERS WIN!")
-
-            for a in attackers:
-                print(f"Attackers: {a}")
-
-            for d in defenders:
-                print(f"Defenders: {d}")
             quit()
         
         a.attack(random.choice(alive_defenders))
 
     for d in alive_defenders:
-        alive_attackers = [a for a in attackers if a.is_alive()]
-        if len(alive_attackers) == 0:
+        alive_attackers = attackers.get_alive_units()
+
+        if attackers.is_defeated():
+            print(f"Attackers: {attackers}")
+            print(f"Defenders: {defenders}")
             print("DEFENDERS WIN!")
-
-            for a in attackers:
-                print(f"Attackers: {a}")
-
-            for d in defenders:
-                print(f"Defenders: {d}")
             quit()
 
         d.attack(random.choice(alive_attackers))
 
-    for a in attackers:
-        print(f"Attackers: {a}")
-
-    for d in defenders:
-        print(f"Defenders: {d}")
+    print(f"Attackers: {attackers}")
+    print(f"Defenders: {defenders}")
     print()
+
+print("DRAW!")
+print(f"Attackers: {attackers}")
+print(f"Defenders: {defenders}")

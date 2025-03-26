@@ -18,5 +18,5 @@ class Unit:
         return self.hp > 0
 
     def __str__(self):
-        return f"{self.hp} - {self.damage}" if self.is_alive() else "DEAD"
+        return f"ID:{self.id} - ({self.hp} / {self.damage})" if self.is_alive() else f"ID:{self.id} - DEAD"
     
