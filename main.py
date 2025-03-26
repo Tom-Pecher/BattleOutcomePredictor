@@ -1,43 +1,39 @@
 
-import random
 from unit import Unit
 from team import Team
+from battle import Battle
 
-attackers = Team([Unit() for _ in range(5)])
-defenders = Team([Unit() for _ in range(5)])
+# for d in range(700, 800):
+#     d = d/100
 
-for tick in range(10):
+#     attackers = Team(name="Attackers", units=[Unit(hp=60, damage=15) for _ in range(5)])
+#     defenders = Team(name="Defenders", units=[Unit(hp=135, damage=d) for _ in range(5)])
+#     b = Battle(attackers, defenders, print_console=False)
+#     outcomes = []
+#     for _ in range(10000):
+#         outcomes.append(b.simulate(length=15, reset_all=True))
 
-    alive_attackers = attackers.get_alive_units()
-    alive_defenders = defenders.get_alive_units()
+#     print(f"{d}: {sum(outcomes)/len(outcomes)}")
 
-    print(f"TICK {tick}")
-    for a in alive_attackers:
-        alive_defenders = defenders.get_alive_units()
-        
-        if defenders.is_defeated():
-            print(f"Attackers: {attackers}")
-            print(f"Defenders: {defenders}")
-            print("ATTACKERS WIN!")
-            quit()
-        
-        a.attack(random.choice(alive_defenders))
+D1 = 7.5 - 1e-15
 
-    for d in alive_defenders:
-        alive_attackers = attackers.get_alive_units()
+attackers = Team(name="Attackers", units=[Unit(hp=60, damage=15) for _ in range(5)])
+defenders = Team(name="Defenders", units=[Unit(hp=135, damage=D1) for _ in range(5)])
+b = Battle(attackers, defenders, print_console=False)
+outcomes = []
+for _ in range(10000):
+    outcomes.append(b.simulate(length=15, reset_all=True))
 
-        if attackers.is_defeated():
-            print(f"Attackers: {attackers}")
-            print(f"Defenders: {defenders}")
-            print("DEFENDERS WIN!")
-            quit()
+print(f"{D1}: {sum(outcomes)/len(outcomes)}")
 
-        d.attack(random.choice(alive_attackers))
 
-    print(f"Attackers: {attackers}")
-    print(f"Defenders: {defenders}")
-    print()
+D2 = 7.5 - 1e-16
 
-print("DRAW!")
-print(f"Attackers: {attackers}")
-print(f"Defenders: {defenders}")
+attackers = Team(name="Attackers", units=[Unit(hp=60, damage=15) for _ in range(5)])
+defenders = Team(name="Defenders", units=[Unit(hp=135, damage=D2) for _ in range(5)])
+b = Battle(attackers, defenders, print_console=False)
+outcomes = []
+for _ in range(10000):
+    outcomes.append(b.simulate(length=15, reset_all=True))
+
+print(f"{D2}: {sum(outcomes)/len(outcomes)}")
