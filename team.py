@@ -3,7 +3,7 @@ import random
 
 class Team:
     n_teams = 0
-    def __init__(self, units, name=None, strategy="Target_Least_HP"):
+    def __init__(self, units, name=None, strategy="Target_Random"):
         self.name = f"Team{Team.n_teams}" if name is None else name
         Team.n_teams += 1
         self.units = units
