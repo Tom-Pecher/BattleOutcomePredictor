@@ -29,11 +29,14 @@ class Team:
             if enemy_team.is_defeated():
                 return True
             
-            if self.strategy == "Random":
+            if self.strategy == "Target_Random":
                 unit.attack(random.choice(enemy_team_units))
             elif self.strategy == "Target_Least_HP":
                 least_hp_unit = min(enemy_team_units, key=lambda x: x.hp)
                 unit.attack(least_hp_unit)
+            elif self.strategy == "Target_Most_D":
+                most_d_unit = max(enemy_team_units, key=lambda x: x.damage)
+                unit.attack(most_d_unit)
             else:
                 raise Exception(f"Invalid strategy: {self.strategy}")
         return False
