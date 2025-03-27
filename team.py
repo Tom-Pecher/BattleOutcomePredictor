@@ -43,3 +43,13 @@ class Team:
             else:
                 raise Exception(f"Invalid strategy: {self.strategy}")
         return False
+    
+    def stats(self):
+        alive_units = len(self.get_alive_units())
+        total_health = sum([unit.hp for unit in self.get_alive_units()])
+        effective_damage_output = sum([unit.damage for unit in self.get_alive_units()])
+        return {
+            "alive_units": alive_units,
+            "total_health": total_health,
+            "effective_damage_output": effective_damage_output
+        }
