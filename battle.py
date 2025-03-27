@@ -1,6 +1,4 @@
 
-import random
-
 class Battle:
     def __init__(self, team1, team2, print_console=True):
         self.team1 = team1

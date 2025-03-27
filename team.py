@@ -3,10 +3,11 @@ import random
 
 class Team:
     n_teams = 0
-    def __init__(self, units, name=None):
+    def __init__(self, units, name=None, strategy="Target_Least_HP"):
         self.name = f"Team{Team.n_teams}" if name is None else name
         Team.n_teams += 1
         self.units = units
+        self.strategy = strategy
 
     def __str__(self):
         return f"{self.name}: {', '.join([str(unit) for unit in self.units])}"
@@ -28,5 +29,11 @@ class Team:
             if enemy_team.is_defeated():
                 return True
             
-            unit.attack(random.choice(enemy_team_units))
+            if self.strategy == "Random":
+                unit.attack(random.choice(enemy_team_units))
+            elif self.strategy == "Target_Least_HP":
+                least_hp_unit = min(enemy_team_units, key=lambda x: x.hp)
+                unit.attack(least_hp_unit)
+            else:
+                raise Exception(f"Invalid strategy: {self.strategy}")
         return False
