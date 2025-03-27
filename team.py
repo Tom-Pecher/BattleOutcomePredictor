@@ -37,6 +37,9 @@ class Team:
             elif self.strategy == "Target_Most_D":
                 most_d_unit = max(enemy_team_units, key=lambda x: x.damage)
                 unit.attack(most_d_unit)
+            elif self.strategy == "Target_Most_D/HP":
+                hpxd_unit = max(enemy_team_units, key=lambda x: x.damage/x.hp)
+                unit.attack(hpxd_unit)
             else:
                 raise Exception(f"Invalid strategy: {self.strategy}")
         return False
